@@ -1,12 +1,12 @@
+import Dashboard from "./components/Dashboard"
 
 
 function App() {
-  
+
 
   return (
     <>
-
-      <h1>Iam sanketh</h1>
+      <Dashboard />
     </>
   )
 }
