@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+/* App.css */
+
+.app-container {
+  font-family: Arial, sans-serif;
+}
+
+/* main content area */
+.main-content {
+  margin-top: 60px; /* Matches the fixed header height */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-open {
+  margin-left: 220px; /* Matches sidebar width */
+}
+
+/* reset default body margin */
+body {
+  margin: 0;
+}
