@@ -11,17 +11,17 @@ const Dashboard = () => {
       <div className="dashboard-cards">
         <div className="dashboard-card">
           <h2 className="dashboard-card-title">Total Orders</h2>
-          <p className="dashboard-card-value">128</p>
+          <p className="dashboard-card-value">129</p>
         </div>
 
         <div className="dashboard-card">
           <h2 className="dashboard-card-title">Earnings</h2>
-          <p className="dashboard-card-value">₹45,300</p>
+          <p className="dashboard-card-value">₹45,360</p>
         </div>
 
         <div className="dashboard-card">
           <h2 className="dashboard-card-title">Products</h2>
-          <p className="dashboard-card-value">54</p>
+          <p className="dashboard-card-value">55</p>
         </div>
       </div>
     </div>
