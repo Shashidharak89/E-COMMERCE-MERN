@@ -15,17 +15,17 @@ function App() {
       <Header onMenuClick={toggleSidebar} />
       <Sidebar isOpen={sidebarOpen} onClose={toggleSidebar} />
       <div
-  style={{
-    paddingTop: "60px", // ✅ Matches header height
-    paddingLeft: sidebarOpen ? "220px" : "0",
-    transition: "padding-left 0.3s",
-  }}
->
-  <Routes>
-    <Route path="/" element={<Dashboard />} />
-    <Route path="/about" element={<About />} />
-  </Routes>
-</div>
+        style={{
+          paddingTop: "60px", // ✅ Matches header height
+          paddingLeft: sidebarOpen ? "220px" : "0",
+          transition: "padding-left 0.3s",
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
 
     </>
   );
