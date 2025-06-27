@@ -3,7 +3,8 @@ import SampleContext from "./SampleContext";
 
 
 export const SampleState = ({ children }) => {
-    const URL = "https://e-commerce-mern-1-2br8.onrender.com";
+    // const URL = "https://e-commerce-mern-1-2br8.onrender.com";
+    const URL = "http://localhost:5000";
     const [username, setUsername] = useState();
     const [userId, setUserId] = useState();
     const [mail, setMail] = useState();

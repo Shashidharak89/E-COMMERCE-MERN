@@ -6,6 +6,7 @@ import About from "./components/About";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import ProfileLoader from "./components/auth/ProfileLoader";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           transition: "padding-left 0.3s",
         }}
       >
+        <ProfileLoader/>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
