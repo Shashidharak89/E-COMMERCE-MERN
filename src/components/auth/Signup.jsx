@@ -1,13 +1,16 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './styles/auth.css';
 import SampleContext from '../../contexts/SampleContext';
+import './styles/Login.css'; // Using the same CSS file
 
 const Signup = () => {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [message, setMessage] = useState('');
-  
-const { 
+    const [form, setForm] = useState({ name: '', email: '', password: '' });
+    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    
+    const { 
         URL, 
         userId, 
         setUserId,
@@ -18,38 +21,151 @@ const {
         islogin, 
         setIslogin 
     } = useContext(SampleContext);
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post(URL+'/api/auth/signup', form);
-      console.log(res.data);
-      setUsername(res.data.user.name);
-       setMail(res.data.user.email);
-       setIslogin(true);
-       setUserId(res.data.user._id);
-      setMessage('Signup successful ✅');
-      localStorage.setItem('token', res.data.token);
-    } catch (err) {
-      console.error(err);
-      setMessage('Signup failed ❌');
-    }
-  };
+    const handleChange = (e) =>
+        setForm({ ...form, [e.target.name]: e.target.value });
 
-  return (
-    <div className="auth-container">
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Register</button>
-      </form>
-      <p>{message}</p>
-    </div>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setMessage('');
+        
+        try {
+            const res = await axios.post(URL + '/api/auth/signup', form);
+            console.log(res.data);
+            setUsername(res.data.user.name);
+            setMail(res.data.user.email);
+            setIslogin(true);
+            setUserId(res.data.user._id);
+            setMessage('Signup successful ✅');
+            localStorage.setItem('token', res.data.token);
+        } catch (err) {
+            console.error(err);
+            setMessage('Signup failed ❌');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    return (
+        <div className="login-wrapper">
+            <div className="login-container">
+                <div className="login-header">
+                    <h2 className="login-title">Create Account</h2>
+                    <p className="login-subtitle">Join us today</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="form-group">
+                        <div className="input-wrapper">
+                            <input 
+                                name="name" 
+                                type="text"
+                                placeholder="Enter your full name"
+                                value={form.name}
+                                onChange={handleChange} 
+                                required 
+                                className="form-input"
+                            />
+                            <div className="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="input-wrapper">
+                            <input 
+                                name="email" 
+                                type="email" 
+                                placeholder="Enter your email"
+                                value={form.email}
+                                onChange={handleChange} 
+                                required 
+                                className="form-input"
+                            />
+                            <div className="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="input-wrapper">
+                            <input 
+                                name="password" 
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Create a password"
+                                value={form.password}
+                                onChange={handleChange} 
+                                required 
+                                className="form-input"
+                            />
+                            <div className="input-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <circle cx="12" cy="16" r="1"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                            <button 
+                                type="button" 
+                                className="password-toggle"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                ) : (
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        className={`login-button ${isLoading ? 'loading' : ''}`}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <div className="loading-spinner"></div>
+                        ) : (
+                            'Create Account'
+                        )}
+                    </button>
+                </form>
+
+                {message && (
+                    <div className={`message ${message.includes('successful') ? 'success' : 'error'}`}>
+                        {message}
+                    </div>
+                )}
+
+                <div className="login-footer">
+                    <p className="signup-link">
+                        Already have an account? 
+                        <Link to="/login" className="link-text">Sign in here</Link>
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default Signup;
