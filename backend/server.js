@@ -7,8 +7,11 @@ import authRoutes from './routes/authRoutes.js';
 dotenv.config();
 const app = express();
 
-// 🚀 Allow *all* origins
-app.use(cors());  // This will set Access-Control-Allow-Origin: *
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
