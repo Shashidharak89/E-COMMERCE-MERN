@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import './styles/auth.css';
+import SampleContext from '../../contexts/SampleContext';
 
 const Signup = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -23,8 +24,12 @@ const {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', form);
+      const res = await axios.post(URL+'/api/auth/signup', form);
       console.log(res.data);
+      setUsername(res.data.user.name);
+       setMail(res.data.user.email);
+       setIslogin(true);
+       setUserId(res.data.user._id);
       setMessage('Signup successful ✅');
       localStorage.setItem('token', res.data.token);
     } catch (err) {
