@@ -5,7 +5,18 @@ import './styles/auth.css';
 const Signup = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-
+  
+const { 
+        URL, 
+        userId, 
+        setUserId,
+        username, 
+        setUsername,
+        mail, 
+        setMail,
+        islogin, 
+        setIslogin 
+    } = useContext(SampleContext);
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
