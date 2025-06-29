@@ -26,7 +26,8 @@ const Dashboard = () => {
           
         </div>
       </div>
-      <Link to="/login">Login</Link>
+      <Link to="/login">LOGIN/SIGNUP</Link> <br /><br />
+      <Link to="/profile">MY PROFILE</Link>
     </div>
   );
 };
