@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Search, Filter, ShoppingCart, Star, RefreshCw, Heart, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -8,7 +10,13 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("default");
-  const [favorites, setFavorites] = useState(new Set());
+  const [favorites, setFavorites] = useState(() => {
+    const stored = localStorage.getItem("favorites");
+    return stored ? new Set(JSON.parse(stored)) : new Set();
+  });
+  const [cartFeedback, setCartFeedback] = useState("");
+  const navigate = useNavigate();
+  const { addToCart, cart } = useCart();
 
   // Fetch products with better error handling
   const fetchProducts = useCallback(async () => {
@@ -77,8 +85,15 @@ const HomePage = () => {
       } else {
         newFavorites.add(productId);
       }
+      localStorage.setItem("favorites", JSON.stringify(Array.from(newFavorites)));
       return newFavorites;
     });
+  };
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setCartFeedback(`Added '${product.title}' to cart!`);
+    setTimeout(() => setCartFeedback(""), 1500);
   };
 
   // Loading skeleton component
@@ -109,10 +124,27 @@ const HomePage = () => {
           loading="lazy"
         />
         <div className="product-overlay">
-           <button onClick={() => navigate(`/product/${product.id}`)}>
+          <button
+            className="overlay-btn"
+            aria-label="View Product"
+            onClick={() => navigate(`/product/${product.id}`)}
+          >
             <Eye className="w-5 h-5" />
           </button>
-         
+          <button
+            className="overlay-btn"
+            aria-label="Add to Cart"
+            onClick={() => handleAddToCart(product)}
+          >
+            <ShoppingCart className="w-5 h-5" />
+          </button>
+          <button
+            className={`overlay-btn${favorites.has(product.id) ? " favorited" : ""}`}
+            aria-label={favorites.has(product.id) ? "Remove from Favorites" : "Add to Favorites"}
+            onClick={() => toggleFavorite(product.id)}
+          >
+            <Heart className="w-5 h-5" fill={favorites.has(product.id) ? "#ef4444" : "none"} />
+          </button>
         </div>
         {product.rating && (
           <div className="product-rating-badge">
@@ -121,7 +153,6 @@ const HomePage = () => {
           </div>
         )}
       </div>
-      
       <div className="product-info">
         <p className="product-category">{product.category}</p>
         <h3 className="product-title">{product.title}</h3>
@@ -131,9 +162,9 @@ const HomePage = () => {
             <span className="product-reviews">({product.rating.count} reviews)</span>
           )}
         </div>
-        <button 
+        <button
           className="add-to-cart-btn"
-          onClick={() => window.location.href = `/product/${product.id}`}
+          onClick={() => handleAddToCart(product)}
         >
           <ShoppingCart className="w-4 h-4" />
           Add to Cart
@@ -607,6 +638,41 @@ const HomePage = () => {
             padding: 2rem 1rem;
           }
         }
+
+        /* Floating Cart Icon */
+        .floating-cart {
+          position: fixed;
+          bottom: 32px;
+          right: 32px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 64px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+          z-index: 2000;
+          cursor: pointer;
+          transition: transform 0.2s;
+        }
+        .floating-cart:hover {
+          transform: scale(1.08) translateY(-4px);
+        }
+        .cart-count {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: #ef4444;
+          color: white;
+          border-radius: 50%;
+          padding: 0.2em 0.6em;
+          font-size: 1rem;
+          font-weight: bold;
+          box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+        }
       `}</style>
 
       {/* Header */}
@@ -659,6 +725,22 @@ const HomePage = () => {
 
       {/* Main Content */}
       <div className="main-content">
+        {cartFeedback && (
+          <div style={{
+            position: "fixed",
+            top: 80,
+            right: 30,
+            background: "#059669",
+            color: "white",
+            padding: "1rem 2rem",
+            borderRadius: 12,
+            fontWeight: 600,
+            zIndex: 9999,
+            boxShadow: "0 4px 24px rgba(5,150,105,0.2)"
+          }}>
+            {cartFeedback}
+          </div>
+        )}
         {loading ? (
           <LoadingSkeleton />
         ) : (
@@ -688,6 +770,18 @@ const HomePage = () => {
             )}
           </>
         )}
+
+        {/* Floating Cart Icon */}
+        <button
+          className="floating-cart"
+          aria-label="View Cart"
+          onClick={() => navigate("/cart")}
+        >
+          <ShoppingCart className="w-7 h-7" />
+          {cart.length > 0 && (
+            <span className="cart-count">{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
+          )}
+        </button>
       </div>
     </div>
   );

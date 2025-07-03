@@ -10,10 +10,9 @@ import ProfileLoader from "./components/auth/ProfileLoader";
 import Profile from "./components/Profile";
 import Cart from './components/Cart';
 import Orders from './components/Orders';
-
 import Help from './components/Help';
 import ProductDetail from './components/ProductDetail';
-
+import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -21,7 +20,7 @@ function App() {
   const toggleSidebar = () => setSidebarOpen((prev) => !prev); // ✅ toggle logic
 
   return (
-    <>
+    <CartProvider>
       <Header onMenuClick={toggleSidebar} />
       <Sidebar isOpen={sidebarOpen} onClose={toggleSidebar} />
       <div
@@ -38,16 +37,13 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/profile" element={<Profile/>} />
-           <Route path="/cart" element={<Cart />} />
-  <Route path="/orders" element={<Orders />} />
-
-<Route path="/product/:id" element={<ProductDetail />} />
-  <Route path="/help" element={<Help />} />
-  
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/help" element={<Help />} />
         </Routes>
       </div>
-
-    </>
+    </CartProvider>
   );
 }
 
