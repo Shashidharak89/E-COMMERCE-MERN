@@ -1,13 +1,19 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
 import About from "./components/About";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import ProfileLoader from "./components/auth/ProfileLoader";
 import Profile from "./components/Profile";
+import Cart from './components/Cart';
+import Orders from './components/Orders';
+
+import Help from './components/Help';
+import ProductDetail from './components/ProductDetail';
+
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,11 +33,17 @@ function App() {
       >
         <ProfileLoader/>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/profile" element={<Profile/>} />
+           <Route path="/cart" element={<Cart />} />
+  <Route path="/orders" element={<Orders />} />
+
+<Route path="/product/:id" element={<ProductDetail />} />
+  <Route path="/help" element={<Help />} />
+  
         </Routes>
       </div>
 
