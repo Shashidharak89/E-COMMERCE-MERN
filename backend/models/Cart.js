@@ -1,10 +1,20 @@
-import express from 'express';
-import { addToCart, getUserCart, deleteCartItem } from '../controllers/cartController.js';
+import mongoose from 'mongoose';
 
-const router = express.Router();
+const ratingSchema = new mongoose.Schema({
+  rate: { type: Number, required: true },
+  count: { type: Number, required: true },
+});
 
-router.post('/add', addToCart);
-router.get('/user/:userid', getUserCart);
-router.delete('/:id', deleteCartItem);
+const cartSchema = new mongoose.Schema({
+  userid: { type: String, required: true },
+  productId: { type: Number, required: true },
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  image: { type: String, required: true },
+  rating: ratingSchema,
+  qty: { type: Number, default: 1 },
+  cartAddedDate: { type: Date, default: Date.now },
+});
 
-export default router;
+const Cart = mongoose.model('Cart', cartSchema);
+export default Cart;
