@@ -3,6 +3,7 @@ import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 import SampleContext from '../contexts/SampleContext';
 import axios from 'axios';
+import './styles/Cart.css';
 
 const Cart = () => {
   const { getTotal, clearCart } = useCart();
@@ -76,76 +77,82 @@ const Cart = () => {
     }
   };
 
-  // Place orders for all cart items
-  const handleCheckout = async () => {
-    if (!userId) {
-      alert("Please log in to place an order.");
-      return;
-    }
-
-    const adress = prompt("Enter delivery address:");
-    if (!adress) return;
-
-    try {
-      for (const item of cartItems) {
-        const payload = {
-          userid: userId,
-          prdid: String(item.productId),
-          prdtitle: item.title,
-          prdimg: item.image,
-          rating: {
-            rate: String(item.rating.rate),
-            count: String(item.rating.count),
-          },
-          qty: String(item.qty),
-          adress,
-        };
-
-        const res = await axios.post(`${URL}/api/order/create`, payload);
-
-        if (res.status !== 200 && res.status !== 201) {
-          alert(`❌ Order failed for ${item.title}`);
-          return;
-        }
-
-        // Delete item from cart after successful individual order
-        await deleteCartItem(item._id);
-      }
-
-      alert("✅ All orders placed successfully!");
-      clearCart();
-      navigate("/orders");
-    } catch (err) {
-      console.error(err);
-      alert("❌ Network error while placing orders.");
-    }
-  };
-
   useEffect(() => {
     fetchCart();
   }, [userId]);
 
   return (
-    <div className="page">
-      <h1>Your Shopping Cart</h1>
+    <div className="cart-page-container">
+      <div className="cart-header-section">
+        <h1 className="cart-main-title">Your Shopping Cart</h1>
+        <div className="cart-items-count">
+          {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
+        </div>
+      </div>
+
       {cartItems.length === 0 ? (
-        <p>No items in the cart yet.</p>
+        <div className="cart-empty-state">
+          <div className="empty-cart-icon">🛒</div>
+          <h2 className="empty-cart-title">Your cart is empty</h2>
+          <p className="empty-cart-message">Add some items to get started!</p>
+        </div>
       ) : (
-        <>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.productId}>
-                {item.title} - ₹{item.price} x {item.qty}
-                <button onClick={() => deleteCartItem(item._id)}>Delete</button>
-                <button onClick={() => orderSingleItem(item)}>Order Now</button>
-              </li>
+        <div className="cart-content-wrapper">
+          <div className="cart-items-container">
+            {cartItems.map((item, index) => (
+              <div 
+                key={item.productId} 
+                className="cart-item-card"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="cart-item-image">
+                  <img src={item.image} alt={item.title} />
+                </div>
+                
+                <div className="cart-item-details">
+                  <h3 className="cart-item-title">{item.title}</h3>
+                  <div className="cart-item-price-qty">
+                    <span className="cart-item-price">₹{item.price}</span>
+                    <span className="cart-item-quantity">Qty: {item.qty}</span>
+                  </div>
+                  <div className="cart-item-total">
+                    Total: ₹{(item.price * item.qty).toFixed(2)}
+                  </div>
+                </div>
+
+                <div className="cart-item-actions">
+                  <button 
+                    onClick={() => orderSingleItem(item)}
+                    className="cart-btn-order"
+                  >
+                    Order Now
+                  </button>
+                  <button 
+                    onClick={() => deleteCartItem(item._id)}
+                    className="cart-btn-delete"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
             ))}
-          </ul>
-          <p><strong>Total: ₹{getTotal().toFixed(2)}</strong></p>
-          <button onClick={handleCheckout} className="btn btn-primary mt-4">
-            Checkout
-          </button>
-        </>
+          </div>
+
+          <div className="cart-summary-section">
+            <div className="cart-summary-card">
+              <h3 className="cart-summary-title">Order Summary</h3>
+              <div className="cart-summary-row">
+                <span>Subtotal ({cartItems.length} items)</span>
+                <span>₹{getTotal().toFixed(2)}</span>
+              </div>
+              <div className="cart-summary-divider"></div>
+              <div className="cart-summary-total">
+                <span>Total</span>
+                <span>₹{getTotal().toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
