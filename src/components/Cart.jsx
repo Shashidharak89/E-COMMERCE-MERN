@@ -21,7 +21,7 @@ const Cart = () => {
 
   const deleteCartItem = async (cartItemId) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/cart/delete/${cartItemId}`, {
+    const res = await fetch(`http://localhost:5000/api/cart/${cartItemId}`, {
       method: "DELETE",
     });
     if (res.ok) {

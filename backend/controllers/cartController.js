@@ -33,22 +33,17 @@ export const getUserCart = async (req, res) => {
   }
 };
 
+// Delete item from cart
 export const deleteCartItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userid } = req.body; // or from req.query or req.user if using authentication
-
-    // Ensure both ID and UserID match
-    const deleted = await Cart.findOneAndDelete({ _id: id, userid });
-
+    const deleted = await Cart.findByIdAndDelete(id);
     if (deleted) {
       res.json({ message: 'Item removed from cart', deleted });
     } else {
-      res.status(404).json({ error: 'Cart item not found or does not belong to the user' });
+      res.status(404).json({ error: 'Cart item not found' });
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Failed to delete cart item' });
   }
 };
-
