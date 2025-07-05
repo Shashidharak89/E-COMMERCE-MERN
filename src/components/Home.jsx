@@ -17,6 +17,7 @@ const HomePage = () => {
   const [cartFeedback, setCartFeedback] = useState("");
   const navigate = useNavigate();
   const { addToCart, cart } = useCart();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   // Fetch products with better error handling
   const fetchProducts = useCallback(async () => {
@@ -26,7 +27,7 @@ const HomePage = () => {
       const response = await fetch("https://fakestoreapi.com/products");
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error("HTTP error! status: ${response.status}");
       }
       
       const data = await response.json();
@@ -90,11 +91,54 @@ const HomePage = () => {
     });
   };
 
-  const handleAddToCart = (product) => {
-    addToCart(product);
+ const handleAddToCart = async (product) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+const userid = user?._id;
+
+if (!userid) {
+  alert("Please log in to add items to cart.");
+  return;
+}
+
+
+  if (!userid) {
+    alert("Please log in to add items to cart.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/cart/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userid: userid,
+        productId: product.id,                     // ✅ as per Postman
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        rating: product.rating,                   // ✅ include full object
+        qty: 1                                     // you can make it dynamic later
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add to cart");
+    }
+
+    const result = await response.json();
+    console.log("Cart Add Response:", result);
+
     setCartFeedback(`Added '${product.title}' to cart!`);
     setTimeout(() => setCartFeedback(""), 1500);
-  };
+  } catch (error) {
+    console.error("Add to Cart Error:", error);
+    setCartFeedback("Failed to add to cart!");
+    setTimeout(() => setCartFeedback(""), 1500);
+  }
+};
+
 
   // Loading skeleton component
   const LoadingSkeleton = () => (
@@ -113,8 +157,10 @@ const HomePage = () => {
     </div>
   );
 
-  // Product card component
-  const ProductCard = ({ product }) => (
+ const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+
+  return (
     <div className="product-card">
       <div className="product-image-container">
         <img
@@ -172,13 +218,14 @@ const HomePage = () => {
       </div>
     </div>
   );
+};
 
   // Error state
   if (error) {
     return (
       <div className="error-container">
         <div className="error-content">
-          <div className="error-icon">⚠️</div>
+          <div className="error-icon">⚠</div>
           <h1 className="error-title">Oops! Something went wrong</h1>
           <p className="error-message">{error}</p>
           <button onClick={fetchProducts} className="retry-btn">
@@ -192,7 +239,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <style jsx>{`
+      <style>{`
         .homepage {
           min-height: 100vh;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

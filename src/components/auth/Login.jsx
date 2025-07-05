@@ -37,10 +37,14 @@ const Login = () => {
             setMail(res.data.user.email);
             setUserId(res.data.user._id);
             setMessage('Login successful ✅');
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            localStorage.setItem('userid', res.data.user._id); // ✅ Store correct userid for reference
             localStorage.setItem('token', res.data.token);
         } catch (err) {
             console.error(err);
             setMessage('Login failed ❌');
+
+            
         } finally {
             setIsLoading(false);
         }
