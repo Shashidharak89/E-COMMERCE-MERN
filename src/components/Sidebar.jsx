@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import './styles/Sidebar.css';
-import { 
-  Home, 
-  Info, 
-  ShoppingCart, 
-  Package, 
+import {
+  Home,
+  Info,
+  ShoppingCart,
+  Package,
   HelpCircle,
   X,
   ChevronRight,
@@ -54,16 +54,16 @@ const Sidebar = ({ isOpen, onClose }) => {
                 return (
                   <li key={index} className="nav-item">
                     <Link
-  to={item.path}
-  className="nav-link"
-  onClick={() => handleNavClick(item.path)}
->
-  <div className="nav-link-content">
-    <IconComponent size={20} className="nav-icon" />
-    <span className="nav-text">{item.label}</span>
-  </div>
-  <ChevronRight size={16} className="nav-arrow" />
-</Link>
+                      to={item.path}
+                      className="nav-link"
+                      onClick={() => handleNavClick(item.path)}
+                    >
+                      <div className="nav-link-content">
+                        <IconComponent size={20} className="nav-icon" />
+                        <span className="nav-text">{item.label}</span>
+                      </div>
+                      <ChevronRight size={16} className="nav-arrow" />
+                    </Link>
 
                   </li>
                 );
@@ -91,7 +91,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Backdrop */}
       {isOpen && <div className="sidebar-backdrop" onClick={onClose}></div>}
 
-      
+
     </>
   );
 };
