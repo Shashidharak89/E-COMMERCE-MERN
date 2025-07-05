@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
+import SampleContext from '../contexts/SampleContext';
 
 const Cart = () => {
   const { getTotal, clearCart } = useCart();
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
-  const userid = localStorage.getItem("userid");
+
+  const{URL,userId}=useContext(SampleContext);
 
   const fetchCart = async () => {
-    if (!userid) return;
+    if (!userId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/cart/user/${userid}`);
+      const res = await fetch(`${URL}/api/cart/user/${userId}`);
       const data = await res.json();
       setCartItems(data);
     } catch (err) {
@@ -21,7 +23,7 @@ const Cart = () => {
 
   const deleteCartItem = async (cartItemId) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/cart/${cartItemId}`, {
+    const res = await fetch(`${URL}/api/cart/${cartItemId}`, {
       method: "DELETE",
     });
     if (res.ok) {
@@ -38,10 +40,10 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCart();
-  }, [userid]);
+  }, [userId]);
 
   const handleCheckout = async () => {
-    if (!userid) {
+    if (!userId) {
       alert("Please log in to place an order.");
       return;
     }
@@ -52,7 +54,7 @@ const Cart = () => {
     try {
       for (const item of cartItems) {
         const payload = {
-          userid,
+          userId,
           prdid: item.productId,
           prdtitle: item.title,
           prdimg: item.image,
