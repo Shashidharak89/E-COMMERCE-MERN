@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import SampleContext from '../contexts/SampleContext';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const userid = localStorage.getItem("userid");
 
+  const {URL,userId}=useContext(SampleContext);
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/order/user/${userid}`);
+        const res = await fetch(`${URL}/api/order/user/${userId}`);
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data = await res.json();
         setOrders(data);
@@ -16,10 +17,10 @@ const Orders = () => {
       }
     };
 
-    if (userid) {
+    if (userId) {
       fetchOrders();
     }
-  }, [userid]);
+  }, [userId]);
 
   return (
     <div className="page">
