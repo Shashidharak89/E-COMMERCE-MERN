@@ -8,7 +8,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
 
-  const{URL,userId}=useContext(SampleContext);
+  const { URL, userId } = useContext(SampleContext);
 
   const fetchCart = async () => {
     if (!userId) return;
@@ -22,19 +22,19 @@ const Cart = () => {
   };
 
   const deleteCartItem = async (cartItemId) => {
-  try {
-    const res = await fetch(`${URL}/api/cart/${cartItemId}`, {
-      method: "DELETE",
-    });
-    if (res.ok) {
-      setCartItems((prev) => prev.filter((item) => item._id !== cartItemId));
-    } else {
-      alert("Failed to delete item from cart.");
+    try {
+      const res = await fetch(`${URL}/api/cart/${cartItemId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setCartItems((prev) => prev.filter((item) => item._id !== cartItemId));
+      } else {
+        alert("Failed to delete item from cart.");
+      }
+    } catch (err) {
+      console.error("Delete failed:", err);
     }
-  } catch (err) {
-    console.error("Delete failed:", err);
-  }
-};
+  };
 
 
 
