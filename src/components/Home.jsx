@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback, useMemo, useContext } from "react";
 import { Search, Filter, ShoppingCart, Star, RefreshCw, Heart, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
+import SampleContext from "../contexts/SampleContext";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -19,6 +20,8 @@ const HomePage = () => {
   const { addToCart, cart } = useCart();
   const user = JSON.parse(localStorage.getItem("user"));
 
+
+  const {URL,userId}=useContext(SampleContext);
   // Fetch products with better error handling
   const fetchProducts = useCallback(async () => {
     try {
@@ -93,7 +96,7 @@ const HomePage = () => {
 
  const handleAddToCart = async (product) => {
   const user = JSON.parse(localStorage.getItem("user"));
-const userid = user?._id;
+const userid = userId;
 
 if (!userid) {
   alert("Please log in to add items to cart.");
@@ -107,7 +110,7 @@ if (!userid) {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/api/cart/add", {
+    const response = await fetch(URL+"/api/cart/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -128,6 +131,7 @@ if (!userid) {
     }
 
     const result = await response.json();
+    console.log("Added to cart");
     console.log("Cart Add Response:", result);
 
     setCartFeedback(`Added '${product.title}' to cart!`);
