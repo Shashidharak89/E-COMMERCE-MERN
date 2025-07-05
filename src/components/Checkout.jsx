@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SampleContext from '../contexts/SampleContext';
 
 const Checkout = () => {
   const { cart, clearCart, getTotal } = useCart();
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  const URL = 'http://localhost:5000';
+  const {URL} = useContext(SampleContext);
 
   const handlePlaceOrder = async () => {
     if (!token) {
