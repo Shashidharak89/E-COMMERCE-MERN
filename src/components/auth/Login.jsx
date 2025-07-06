@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SampleContext from '../../contexts/SampleContext';
 import './styles/Login.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
     const [form, setForm] = useState({ email: '', password: '' });
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
     const { 
         URL, 
         userId, 
@@ -23,6 +26,8 @@ const Login = () => {
 
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
+   
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,6 +45,8 @@ const Login = () => {
             localStorage.setItem("user", JSON.stringify(res.data.user));
             localStorage.setItem('userid', res.data.user._id); // ✅ Store correct userid for reference
             localStorage.setItem('token', res.data.token);
+            navigate('/');
+
         } catch (err) {
             console.error(err);
             setMessage('Login failed ❌');
