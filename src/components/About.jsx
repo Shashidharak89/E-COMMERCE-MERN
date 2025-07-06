@@ -323,7 +323,7 @@ const About = () => {
 
         .stats-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
           gap: 25px;
         }
 
@@ -334,6 +334,7 @@ const About = () => {
           text-align: center;
           color: white;
           transition: transform 0.3s ease;
+          min-width: 160px;
         }
 
         .stat-card:hover {
@@ -428,6 +429,88 @@ const About = () => {
 
           .stats-grid {
             grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-page-container {
+            padding: 10px;
+          }
+
+          .about-header-section {
+            padding: 20px 0;
+            margin-bottom: 20px;
+          }
+
+          .about-main-title {
+            font-size: 1.8rem;
+          }
+
+          .about-subtitle {
+            font-size: 1rem;
+          }
+
+          .about-story-card,
+          .about-mission-card,
+          .about-values-section,
+          .about-stats-section,
+          .about-cta-card {
+            padding: 20px;
+          }
+
+          .story-icon-wrapper {
+            width: 80px;
+            height: 80px;
+          }
+
+          .story-main-icon {
+            width: 40px;
+            height: 40px;
+          }
+
+          .mission-icon-wrapper {
+            width: 70px;
+            height: 70px;
+          }
+
+          .story-title,
+          .mission-title {
+            font-size: 1.5rem;
+          }
+
+          .about-section-title {
+            font-size: 1.5rem;
+          }
+
+          .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
+
+          .stat-card {
+            padding: 20px;
+            min-width: auto;
+          }
+
+          .stat-number {
+            font-size: 2rem;
+          }
+
+          .stat-label {
+            font-size: 0.9rem;
+          }
+
+          .cta-title {
+            font-size: 1.5rem;
+          }
+
+          .cta-text {
+            font-size: 1rem;
+          }
+
+          .cta-button {
+            padding: 12px 25px;
+            font-size: 1rem;
           }
         }
       `}</style>
