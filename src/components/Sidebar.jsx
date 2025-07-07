@@ -87,11 +87,8 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-
       {/* Backdrop */}
       {isOpen && <div className="sidebar-backdrop" onClick={onClose}></div>}
-
-
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SampleContext from '../contexts/SampleContext';
+import './styles/checkout.css';
 
 const Checkout = () => {
   const { cart, clearCart, getTotal } = useCart();

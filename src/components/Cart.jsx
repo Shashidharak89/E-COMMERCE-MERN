@@ -7,8 +7,9 @@ import './styles/Cart.css';
 
 const Cart = () => {
   const { getTotal, clearCart } = useCart();
-  const navigate = useNavigate();
+  
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
   const { URL, userId } = useContext(SampleContext);
 
 if (!userId) {

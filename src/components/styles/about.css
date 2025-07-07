@@ -1,322 +1,381 @@
- .about-page {
+.about-page-container {
           min-height: 100vh;
-          background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+          background: #f8f9fa;
+          padding: 20px;
+          font-family: 'Arial', sans-serif;
         }
 
-        .hero-section {
-          padding: 100px 20px 80px;
+        .about-header-section {
           text-align: center;
-          position: relative;
-          overflow: hidden;
+          margin-bottom: 40px;
+          padding: 40px 0;
         }
 
-        .hero-section::before {
-          content: '';
-          position: absolute;
-          top: -50%;
-          right: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-          animation: rotate 20s linear infinite;
+        .about-main-title {
+          font-size: 3rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 10px;
         }
 
-        @keyframes rotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        .about-subtitle {
+          font-size: 1.2rem;
+          color: #666;
+          font-weight: 300;
         }
 
-        .hero-content {
-          position: relative;
-          z-index: 1;
-        }
-
-        .hero-title {
-          font-size: 4rem;
-          font-weight: 800;
-          color: white;
-          margin-bottom: 20px;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-          letter-spacing: -2px;
-        }
-
-        .hero-subtitle {
-          font-size: 1.5rem;
-          color: #fbbf24;
-          margin-bottom: 30px;
-          font-weight: 600;
-        }
-
-        .hero-decoration {
-          width: 100px;
-          height: 4px;
-          background: linear-gradient(90deg, #fbbf24, #f59e0b);
-          margin: 0 auto;
-          border-radius: 2px;
-        }
-
-        .main-content {
-          background: white;
-          position: relative;
-          z-index: 1;
-        }
-
-        .container {
+        .about-content-wrapper {
           max-width: 1200px;
           margin: 0 auto;
-          padding: 80px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
         }
 
-        .section-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          text-align: center;
-          margin-bottom: 50px;
-          background: linear-gradient(45deg, #1e40af, #3b82f6, #fbbf24);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
+        .about-story-card {
+          background: white;
+          border-radius: 15px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          animation: fadeInUp 0.6s ease-out;
         }
 
-        .story-section {
-          margin-bottom: 80px;
+        .story-icon-wrapper {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          border-radius: 50%;
+          width: 120px;
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .story-main-icon {
+          color: white;
         }
 
         .story-content {
-          display: grid;
-          grid-template-columns: 2fr 1fr;
-          gap: 60px;
-          align-items: center;
+          flex: 1;
+        }
+
+        .story-title {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 20px;
         }
 
         .story-paragraph {
-          font-size: 1.2rem;
-          line-height: 1.8;
-          color: #374151;
-          margin-bottom: 25px;
-          text-align: justify;
+          color: #666;
+          line-height: 1.6;
+          margin-bottom: 15px;
+          font-size: 1.1rem;
         }
 
         .brand-highlight {
-          color: #1e40af;
-          font-weight: 700;
-          font-size: 1.3em;
+          color: #667eea;
+          font-weight: bold;
         }
 
-        .story-visual {
-          display: flex;
-          justify-content: center;
-        }
-
-        .visual-element {
-          text-align: center;
+        .about-mission-card {
+          background: white;
+          border-radius: 15px;
           padding: 40px;
-          background: linear-gradient(135deg, #1e40af, #3b82f6);
-          border-radius: 20px;
-          color: white;
-          box-shadow: 0 20px 40px rgba(30, 64, 175, 0.3);
-        }
-
-        .story-icon {
-          color: #fbbf24;
-          margin-bottom: 15px;
-        }
-
-        .visual-text {
-          font-size: 1.2rem;
-          font-weight: 600;
-        }
-
-        .mission-section {
-          margin-bottom: 80px;
-        }
-
-        .mission-card {
-          background: linear-gradient(135deg, #111827, #374151);
-          padding: 50px;
-          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           display: flex;
           align-items: center;
-          gap: 40px;
-          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-          border: 2px solid #fbbf24;
+          gap: 30px;
+          animation: fadeInUp 0.6s ease-out 0.1s both;
         }
 
-        .mission-icon {
-          color: #fbbf24;
+        .mission-icon-wrapper {
+          background: linear-gradient(135deg, #f093fb, #f5576c);
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           flex-shrink: 0;
+          color: white;
         }
 
         .mission-title {
           font-size: 1.8rem;
-          font-weight: 700;
-          color: #fbbf24;
+          font-weight: bold;
+          color: #333;
           margin-bottom: 15px;
         }
 
         .mission-text {
+          color: #666;
+          line-height: 1.6;
           font-size: 1.1rem;
-          line-height: 1.7;
-          color: #f9fafb;
         }
 
-        .values-section {
-          margin-bottom: 80px;
+        .about-values-section {
+          background: white;
+          border-radius: 15px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .about-section-title {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #333;
+          text-align: center;
+          margin-bottom: 30px;
         }
 
         .values-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 30px;
+          gap: 25px;
         }
 
         .value-card {
-          background: white;
-          padding: 40px 30px;
-          border-radius: 15px;
-          text-align: center;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          border: 2px solid transparent;
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .value-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-          transition: left 0.5s ease;
-        }
-
-        .value-card:hover::before {
-          left: 100%;
+          background: #f8f9fa;
+          border-radius: 12px;
+          padding: 25px;
+          display: flex;
+          align-items: flex-start;
+          gap: 15px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .value-card:hover {
-          border-color: #3b82f6;
           transform: translateY(-5px);
-          box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .value-icon {
-          color: #1e40af;
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 1;
+        .value-icon-wrapper {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: white;
         }
 
         .value-title {
-          font-size: 1.3rem;
-          font-weight: 600;
-          color: #111827;
-          margin-bottom: 15px;
-          position: relative;
-          z-index: 1;
+          font-size: 1.2rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 10px;
         }
 
         .value-description {
-          color: #6b7280;
-          line-height: 1.6;
-          position: relative;
-          z-index: 1;
+          color: #666;
+          line-height: 1.5;
+          font-size: 0.95rem;
         }
 
-        .stats-section {
-          margin-bottom: 80px;
+        .about-stats-section {
+          background: white;
+          border-radius: 15px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          animation: fadeInUp 0.6s ease-out 0.3s both;
         }
 
         .stats-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 30px;
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+          gap: 25px;
         }
 
-        .stat-item {
+        .stat-card {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          border-radius: 12px;
+          padding: 30px;
           text-align: center;
-          padding: 40px 20px;
-          background: linear-gradient(135deg, #fbbf24, #f59e0b);
-          border-radius: 15px;
           color: white;
-          box-shadow: 0 15px 30px rgba(251, 191, 36, 0.3);
           transition: transform 0.3s ease;
+          min-width: 160px;
         }
 
-        .stat-item:hover {
-          transform: translateY(-5px);
+        .stat-card:hover {
+          transform: scale(1.05);
         }
 
         .stat-number {
           font-size: 2.5rem;
-          font-weight: 800;
+          font-weight: bold;
           margin-bottom: 10px;
         }
 
         .stat-label {
-          font-size: 1.1rem;
-          font-weight: 600;
+          font-size: 1rem;
           opacity: 0.9;
         }
 
-        .cta-section {
+        .about-cta-card {
+          background: white;
+          border-radius: 15px;
+          padding: 40px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           text-align: center;
-          padding: 60px 40px;
-          background: linear-gradient(135deg, #1e40af, #3b82f6);
-          border-radius: 20px;
-          color: white;
+          animation: fadeInUp 0.6s ease-out 0.4s both;
         }
 
         .cta-title {
-          font-size: 2.2rem;
-          font-weight: 700;
-          margin-bottom: 20px;
+          font-size: 2rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 15px;
         }
 
         .cta-text {
-          font-size: 1.1rem;
+          color: #666;
           line-height: 1.6;
           margin-bottom: 30px;
-          opacity: 0.9;
+          font-size: 1.1rem;
         }
 
         .cta-button {
-          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          background: linear-gradient(135deg, #667eea, #764ba2);
           color: white;
-          padding: 15px 40px;
           border: none;
-          border-radius: 50px;
+          padding: 15px 35px;
+          border-radius: 25px;
           font-size: 1.1rem;
-          font-weight: 600;
+          font-weight: bold;
           cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .cta-button:hover {
           transform: translateY(-2px);
-          box-shadow: 0 15px 30px rgba(251, 191, 36, 0.4);
+          box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         @media (max-width: 768px) {
-          .hero-title {
-            font-size: 2.5rem;
+          .about-main-title {
+            font-size: 2rem;
           }
-          
-          .story-content {
-            grid-template-columns: 1fr;
-            gap: 40px;
-          }
-          
-          .mission-card {
+
+          .about-story-card,
+          .about-mission-card {
             flex-direction: column;
             text-align: center;
           }
-          
-          .section-title {
+
+          .story-icon-wrapper,
+          .mission-icon-wrapper {
+            margin-bottom: 20px;
+          }
+
+          .about-content-wrapper {
+            padding: 0 10px;
+          }
+
+          .values-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-page-container {
+            padding: 10px;
+          }
+
+          .about-header-section {
+            padding: 20px 0;
+            margin-bottom: 20px;
+          }
+
+          .about-main-title {
+            font-size: 1.8rem;
+          }
+
+          .about-subtitle {
+            font-size: 1rem;
+          }
+
+          .about-story-card,
+          .about-mission-card,
+          .about-values-section,
+          .about-stats-section,
+          .about-cta-card {
+            padding: 20px;
+          }
+
+          .story-icon-wrapper {
+            width: 80px;
+            height: 80px;
+          }
+
+          .story-main-icon {
+            width: 40px;
+            height: 40px;
+          }
+
+          .mission-icon-wrapper {
+            width: 70px;
+            height: 70px;
+          }
+
+          .story-title,
+          .mission-title {
+            font-size: 1.5rem;
+          }
+
+          .about-section-title {
+            font-size: 1.5rem;
+          }
+
+          .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
+
+          .stat-card {
+            padding: 20px;
+            min-width: auto;
+          }
+
+          .stat-number {
             font-size: 2rem;
+          }
+
+          .stat-label {
+            font-size: 0.9rem;
+          }
+
+          .cta-title {
+            font-size: 1.5rem;
+          }
+
+          .cta-text {
+            font-size: 1rem;
+          }
+
+          .cta-button {
+            padding: 12px 25px;
+            font-size: 1rem;
           }
         }
