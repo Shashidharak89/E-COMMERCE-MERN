@@ -17,7 +17,7 @@ if (!userId) {
       <h2>Please log in to view your cart.</h2>
       <button 
         className="login-redirect-button" 
-        onClick={() => navigate('auth/Login')}
+        onClick={() => navigate('/auth/Login')}
       >
         Go to Login
       </button>
