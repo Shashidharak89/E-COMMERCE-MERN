@@ -11,6 +11,20 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const { URL, userId } = useContext(SampleContext);
 
+if (!userId) {
+  return (
+    <div className="cart-login-required">
+      <h2>Please log in to view your cart.</h2>
+      <button 
+        className="login-redirect-button" 
+        onClick={() => navigate('auth/Login')}
+      >
+        Go to Login
+      </button>
+    </div>
+  );
+}
+
   // Fetch cart items for the user
   const fetchCart = async () => {
     if (!userId) return;

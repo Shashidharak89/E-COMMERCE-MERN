@@ -9,6 +9,22 @@ const Orders = () => {
 
   const { URL, userId } = useContext(SampleContext);
 
+
+  if (!userId) {
+  return (
+    <div className="cart-login-required">
+      <h2>Please log in to view your Orders.</h2>
+      <button 
+        className="login-redirect-button" 
+        onClick={() => navigate('auth/Login')}
+      >
+        Go to Login
+      </button>
+    </div>
+  );
+}
+
+
  useEffect(() => {
   const fetchOrders = async () => {
     try {
@@ -675,6 +691,28 @@ setOrders(sortedOrders);
             gap: 0.5rem;
             align-items: flex-start;
           }
+
+          .cart-login-required {
+  text-align: center;
+  margin-top: 5rem;
+  color: #1f2937;
+}
+
+.login-redirect-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-redirect-button:hover {
+  background: #2563eb;
+}
+
         }
       `}</style>
     </div>
