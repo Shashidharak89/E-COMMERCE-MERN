@@ -1,7 +1,11 @@
 import React from 'react';
 import { ShoppingBag, Users, Award, Truck, Shield, Heart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const About = () => {
+  const navigate = useNavigate();
   return (
     <div className="about-page-container">
       <div className="about-header-section">
@@ -124,9 +128,10 @@ const About = () => {
               Join millions of satisfied customers who trust ShopX for their shopping needs. 
               Discover amazing products and unbeatable deals today!
             </p>
-            <button className="cta-button">
-              Start Shopping Now
-            </button>
+            <button className="cta-button" onClick={() => navigate('/')}>
+  Start Shopping Now
+</button>
+
           </div>
         </div>
       </div>

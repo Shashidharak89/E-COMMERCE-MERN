@@ -9,27 +9,34 @@ const Orders = () => {
 
   const { URL, userId } = useContext(SampleContext);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const res = await fetch(`${URL}/api/order/user/${userId}`);
-        if (!res.ok) throw new Error("Failed to fetch orders");
-        const data = await res.json();
-        setOrders(data);
-      } catch (err) {
-        console.error("❌ Error fetching orders:", err.message);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch(`${URL}/api/order/user/${userId}`);
+      if (!res.ok) throw new Error("Failed to fetch orders");
+      const data = await res.json();
+      
+      // Sort by createdAt descending
+      const sortedOrders = [...data].sort((a, b) => {
+  return new Date(b.orderdate).getTime() - new Date(a.orderdate).getTime();
+});
+setOrders(sortedOrders);
 
-    if (userId) {
-      fetchOrders();
+    } catch (err) {
+      console.error("❌ Error fetching orders:", err.message);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  }, [userId, URL]);
+  };
+
+  if (userId) {
+    fetchOrders();
+  }
+}, [userId, URL]);
+
 
   const LoadingSkeleton = () => (
     <div className="loading-container">
@@ -102,19 +109,27 @@ const Orders = () => {
             <p className="order-quantity">Quantity: {order.qty}</p>
           </div>
         </div>
-        <div className={`order-status ${order.delivered ? 'delivered' : 'pending'}`}>
-          {order.delivered ? (
-            <>
-              <CheckCircle className="status-icon" />
-              <span>Delivered</span>
-            </>
-          ) : (
-            <>
-              <Clock className="status-icon" />
-              <span>Pending</span>
-            </>
-          )}
-        </div>
+<div className={`order-status ${order.status}`}>
+  {order.status === 'delivered' && (
+    <>
+      <CheckCircle className="status-icon" />
+      <span>Delivered</span>
+    </>
+  )}
+  {order.status === 'pending' && (
+    <>
+      <Clock className="status-icon" />
+      <span>Pending</span>
+    </>
+  )}
+  {order.status === 'failed' && (
+    <>
+      <XCircle className="status-icon" />
+      <span>Failed</span>
+    </>
+  )}
+</div>
+
       </div>
       
       <div className="order-address">
@@ -130,7 +145,7 @@ const Orders = () => {
         {!order.delivered && (
           <div className="order-tracking">
             <Truck className="tracking-icon" />
-            <span>Track order</span>
+            
           </div>
         )}
       </div>
@@ -138,26 +153,32 @@ const Orders = () => {
   );
 
   const OrderStats = () => {
-    const deliveredCount = orders.filter(o => o.delivered).length;
-    const pendingCount = orders.filter(o => !o.delivered).length;
-    
-    return (
-      <div className="order-stats">
-        <div className="stat-item">
-          <span className="stat-number">{orders.length}</span>
-          <span className="stat-label">Total Orders</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-number delivered">{deliveredCount}</span>
-          <span className="stat-label">Delivered</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-number pending">{pendingCount}</span>
-          <span className="stat-label">Pending</span>
-        </div>
+  const deliveredCount = orders.filter(o => o.status === 'delivered').length;
+  const pendingCount = orders.filter(o => o.status === 'pending').length;
+  const failedCount = orders.filter(o => o.status === 'failed').length;
+
+  return (
+    <div className="order-stats">
+      <div className="stat-item">
+        <span className="stat-number">{orders.length}</span>
+        <span className="stat-label">Total Orders</span>
       </div>
-    );
-  };
+      <div className="stat-item">
+        <span className="stat-number delivered">{deliveredCount}</span>
+        <span className="stat-label">Delivered</span>
+      </div>
+      <div className="stat-item">
+        <span className="stat-number pending">{pendingCount}</span>
+        <span className="stat-label">Pending</span>
+      </div>
+      <div className="stat-item">
+        <span className="stat-number failed">{failedCount}</span>
+        <span className="stat-label">Failed</span>
+      </div>
+    </div>
+  );
+};
+
 
   return (
     <div className="orders-container">
@@ -363,6 +384,10 @@ const Orders = () => {
           transition: all 0.2s;
           box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
         }
+          .stat-number.failed {
+  color: #ef4444;
+}
+
 
         .empty-button:hover {
           transform: translateY(-2px);
