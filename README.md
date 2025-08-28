@@ -1,83 +1,70 @@
-# <div align="center">🛍️ ShopX – MERN E-Commerce Website</div>
+# 🛒 ShopX - MERN E-Commerce Platform
 
-<div align="center">
-  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385704/home_rbh4os.png" width="600px" style="border-radius:15px;box-shadow:0 0 15px rgba(255,0,0,0.6);animation:glow 2s infinite alternate;">
-</div>
-
-<hr/>
-
-<div align="center">
-  <h2>🚀 About ShopX</h2>
-  <p style="font-size:16px;line-height:1.6;color:#ff0057;font-weight:bold;animation:fadeIn 3s ease-in-out infinite alternate;">
-    ShopX is a modern <b>MERN stack e-commerce platform</b> where users can browse, add products to cart, manage orders, and enjoy a smooth shopping experience.
-  </p>
-  <p>
-    🌐 Live Website: <a href="https://e-commerce-mern-beta.vercel.app" target="_blank"><b>ShopX</b></a>
-  </p>
-</div>
-
-<hr/>
-
-<div align="center">
-  <h2>✨ Features</h2>
-</div>
-
-<ul style="font-size:15px;line-height:1.8;animation:slideUp 2s ease-in-out;">
-  <li>🛒 Add to Cart & Order Management</li>
-  <li>🔑 Secure Login & Authentication</li>
-  <li>📦 Real-time Order Tracking</li>
-  <li>💻 Built with <b>MERN Stack (MongoDB, Express.js, React, Node.js)</b></li>
-  <li>🎨 Modern UI & Smooth Animations</li>
-</ul>
-
-<hr/>
-
-<div align="center">
-  <h2>🖼️ Project Screenshots</h2>
-</div>
-
-<div align="center" style="display:flex;flex-direction:column;gap:20px;animation:zoomIn 3s ease-in-out;">
-  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385704/home_rbh4os.png" width="500px" style="border-radius:12px;box-shadow:0 0 12px #ff0057;">
-  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385997/login_xl30zx.png" width="500px" style="border-radius:12px;box-shadow:0 0 12px #00f0ff;">
-  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385998/cart_kd6hvq.png" width="500px" style="border-radius:12px;box-shadow:0 0 12px #f0ff00;">
-  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756386190/orders_rhrtqx.png" width="500px" style="border-radius:12px;box-shadow:0 0 12px #ffffff;">
-</div>
-
-<hr/>
-
-<div align="center">
-  <h2>👥 Contributors</h2>
-</div>
-
-<ul style="list-style:none;animation:fadeIn 2s infinite alternate;">
-  <li>✨ <a href="https://github.com/Shashidharak89">@Shashidharak89</a> (Shashidhara K)</li>
-  <li>⚡ <a href="https://github.com/Prakashmonis05">@Prakashmonis05</a> (Prakash Monis)</li>
-  <li>🔥 <a href="https://github.com/sankethkul">@sankethkul</a> (Sanketh Kul)</li>
-</ul>
-
-<hr/>
-
-<div align="center">
-  <h2>🎬 Animations & Styles</h2>
-</div>
-
+<html>
+<head>
 <style>
-@keyframes glow {
-  from { box-shadow: 0 0 10px #ff0057; }
-  to { box-shadow: 0 0 25px #ff66b2; }
+@keyframes fade {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  25% {opacity: 1;}
+  35% {opacity: 0;}
+  100% {opacity: 0;}
 }
-@keyframes fadeIn {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+.slider img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fade 16s infinite;
 }
-@keyframes zoomIn {
-  from { transform: scale(0.9); opacity: 0.5; }
-  to { transform: scale(1); opacity: 1; }
+.slider img:nth-child(1) { animation-delay: 0s; }
+.slider img:nth-child(2) { animation-delay: 4s; }
+.slider img:nth-child(3) { animation-delay: 8s; }
+.slider img:nth-child(4) { animation-delay: 12s; }
+h1, h2, h3, p {
+  text-align: center;
+  color: #fff;
+}
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  color: #fff;
 }
 </style>
+</head>
+<body>
 
----
+<h1>✨ ShopX ✨</h1>
+<p>A modern <b>MERN Stack</b> e-commerce platform with cart, authentication, and order management.</p>
+
+<div class="slider">
+  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385704/home_rbh4os.png" alt="Home Page">
+  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385997/login_xl30zx.png" alt="Login Page">
+  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756385998/cart_kd6hvq.png" alt="Cart Page">
+  <img src="https://res.cloudinary.com/dsojdpkgh/image/upload/v1756386190/orders_rhrtqx.png" alt="Orders Page">
+</div>
+
+<h2>🌐 Live Demo</h2>
+<p><a href="https://e-commerce-mern-beta.vercel.app" target="_blank">Visit ShopX</a></p>
+
+<h2>👨‍💻 Contributors</h2>
+<ul>
+  <li><a href="https://github.com/Shashidharak89">@Shashidharak89</a> - Shashidhara K</li>
+  <li><a href="https://github.com/Prakashmonis05">@Prakashmonis05</a> - Prakash Monis</li>
+  <li><a href="https://github.com/sankethkul">@sankethkul</a> - Sanketh Kul</li>
+</ul>
+
+</body>
+</html>
