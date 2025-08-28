@@ -57,8 +57,6 @@
 
 <hr/>
 
-<div align="center">
-  <h2>🎬 Animations & Styles</h2>
-</div>
+
 
 
